@@ -1,0 +1,86 @@
+html, body
+{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+body
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.flex
+{
+	display: flex;
+
+	&.column { flex-direction: column; }
+	&.row { flex-direction: row; }
+
+	&.items-center { align-items: center; }
+	&.items-stretch { align-items: stretch; }
+	&.items-justify-center { justify-items: center; }
+	&.items-justify-stretch { justify-items: stretch; }
+	&.content-justify-center { justify-content: center; }
+	&.content-justify-stretch { justify-content: stretch; }
+	&.self-center { align-self: center; }
+	&.self-stretch { align-self: stretch; }
+
+	&.wrap { flex-wrap: wrap; }
+}
+
+.flex-auto { flex-basis: auto; }
+.flex-0 { flex-basis: 0; }
+.flex-star { flex: 1 1; }
+.flex-constant { flex: 0 0; }
+.flex-grow { flex: 1 0; }
+.flex-shrink { flex: 0 1; }
+
+.px-rule-loop (@className, @property, @value, @step) when (@value > 0)
+{
+	.px-rule-loop(@className, @property, @value - @step, @step);
+	
+	.@{className}@{value}
+	{
+		@{property}: ~"@{value}px";
+	}
+}
+
+.px-rule-loop (m, margin, 48, 4);
+.px-rule-loop (ml, margin-left, 48, 4);
+.px-rule-loop (mr, margin-right, 48, 4);
+.px-rule-loop (mt, margin-top, 48, 4);
+.px-rule-loop (mb, margin-bottom, 48, 4);
+.px-rule-loop (p, padding, 48, 4);
+.px-rule-loop (pl, padding-left, 48, 4);
+.px-rule-loop (pr, padding-right, 48, 4);
+.px-rule-loop (pt, padding-top, 48, 4);
+.px-rule-loop (pb, padding-bottom, 48, 4);
+.px-rule-loop (gap, gap, 48, 4);
+
+// #region Overrides
+#main-content
+{
+	overflow: auto;
+}
+
+.bx--content
+{
+	padding: 1rem 0;
+}
+
+.bx--data-table-container
+{
+	padding-top: 0;
+}
+
+@media (min-width: 42rem)
+{
+	.bx--content
+	{
+		padding: 2rem 0;
+	}
+}
+// #endregion

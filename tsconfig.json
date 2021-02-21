@@ -1,0 +1,17 @@
+{
+	"include": ["**/*.ts"],
+	"exclude": ["node_modules/*"],
+	"compilerOptions": {
+		"strict": true,
+		"target": "ES2019",
+		"moduleResolution": "node",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"downlevelIteration": true,
+		"importsNotUsedAsValues": "error",
+		"isolatedModules": true,
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"types": ["svelte"]
+	}
+}

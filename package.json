@@ -1,0 +1,31 @@
+{
+	"name": "l4d-glow-generator",
+	"description": "Left 4 Dead animated glow generator.",
+	"authors": "brunnerh",
+	"version": "0.1.0",
+	"dependencies": {
+		"http-server": "^0.12.3"
+	},
+	"devDependencies": {
+		"@snowpack/plugin-svelte": "^3.5.2",
+		"carbon-components-svelte": "^0.29.0",
+		"carbon-icons-svelte": "^10.21.0",
+		"jszip": "^3.6.0",
+		"postcss": "^8.2.4",
+		"rollup": "^2.38.0",
+		"snowpack": "^3.0.11",
+		"snowpack-plugin-less": "^1.0.5",
+		"svelte": "^3.31.2",
+		"svelte-preprocess": "^4.6.3",
+		"svelte-spa-router": "^3.1.0",
+		"tinygradient": "^1.1.2",
+		"typescript": "^4.1.3"
+	},
+	"scripts": {
+		"install": "npm run build",
+		"build": "snowpack build",
+		"start": "npm run start:prod",
+		"start:dev": "snowpack dev",
+		"start:prod": "http-server ./out"
+	}
+}
