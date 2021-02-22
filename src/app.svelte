@@ -45,7 +45,7 @@
 		<SkipToContent />
 	</div>
 	<div slot="platform">
-		<a class="home-link" href="/#/">
+		<a class="home-link" href="#/">
 			<h1>L4D Glow Generator</h1>
 		</a>
 	</div>

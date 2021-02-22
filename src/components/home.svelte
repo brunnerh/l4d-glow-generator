@@ -6,7 +6,6 @@
 	import ChevronRight20 from 'carbon-icons-svelte/lib/ChevronRight20';
 	import Menu20 from 'carbon-icons-svelte/lib/Menu20';
 	import { defaultState, glows, state } from '../data';
-	import type { State } from '../data';
 	import { generateScripts } from '../logic/script-generator';
 	import JSZip from 'jszip';
 	import { alert, confirm } from '../utility/dialogs';
@@ -23,16 +22,9 @@
 	]
 	const glowRows = glows.map(g => ({ ...g, id: g.cvar }));
 
-	function getColorCount(currentState: State, cvar: string)
-	{
-		return cvar in currentState.config ?
-			currentState.config[cvar].colors.length :
-			0;
-	}
-
 	function onEditGlow(cvar: string)
 	{
-		document.location.href = `/#/glow/${cvar}`;
+		document.location.href = `#/glow/${cvar}`;
 	}
 
 	async function onLoadConfig()

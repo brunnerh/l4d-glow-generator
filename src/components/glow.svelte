@@ -23,7 +23,7 @@
 </script>
 
 <Breadcrumb noTrailingSlash>
-	<BreadcrumbItem href="/#/">Glows</BreadcrumbItem>
+	<BreadcrumbItem href="#/">Glows</BreadcrumbItem>
 	{#if data}
 		<BreadcrumbItem>{data.metadata.label}</BreadcrumbItem>
 	{/if}
