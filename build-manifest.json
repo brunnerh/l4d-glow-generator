@@ -273,7 +273,7 @@
       "imports": []
     },
     "components/home.svelte.js": {
-      "bytes": 23561,
+      "bytes": 23425,
       "imports": [
         {
           "path": "components/home.svelte.css",
@@ -419,7 +419,7 @@
       ]
     },
     "components/glow.svelte.js": {
-      "bytes": 13606,
+      "bytes": 13605,
       "imports": [
         {
           "path": "_snowpack/pkg/svelte/internal.js",
@@ -444,7 +444,7 @@
       ]
     },
     "app.svelte.js": {
-      "bytes": 9825,
+      "bytes": 9824,
       "imports": [
         {
           "path": "app.svelte.css",
@@ -606,7 +606,7 @@
           "bytesInOutput": 221
         },
         "components/home.svelte.js": {
-          "bytesInOutput": 8752
+          "bytesInOutput": 8751
         },
         "components/not-found.svelte.css": {
           "bytesInOutput": 0
@@ -630,16 +630,16 @@
           "bytesInOutput": 4959
         },
         "components/glow.svelte.js": {
-          "bytesInOutput": 4398
+          "bytesInOutput": 4397
         },
         "app.svelte.js": {
-          "bytesInOutput": 3075
+          "bytesInOutput": 3074
         },
         "main.js": {
           "bytesInOutput": 115
         }
       },
-      "bytes": 321646
+      "bytes": 321643
     },
     "../~~bundle~~/main.css": {
       "imports": [],
