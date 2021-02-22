@@ -1,4 +1,3 @@
-import type { GlowConfig } from './glows';
 import { localStorageStore } from './local-storage-store';
 
 export const state = localStorageStore<State>('state', defaultState());
@@ -7,7 +6,8 @@ export function defaultState(): State
 {
 	return {
 		version: 1,
-		framesPerTransition: 30,
+		averageFramerate: 60,
+		transitionsPerSecond: 3,
 		config: {},
 	};
 }
@@ -24,9 +24,9 @@ function newGlowConfig(): GlowConfig
 {
 	return {
 		colors: [],
-		framesPerTransition: {
+		transitionsPerSecond: {
 			enabled: false,
-			value: 30,
+			value: 3,
 		}
 	};
 }
@@ -34,6 +34,20 @@ function newGlowConfig(): GlowConfig
 export interface State
 {
 	version: number,
-	framesPerTransition: number;
+	averageFramerate: number;
+	transitionsPerSecond: number;
 	config: Record<string, GlowConfig>;
+}
+
+export interface GlowConfig
+{
+	colors: string[];
+
+	transitionsPerSecond: TransitionsOverride;
+}
+
+export interface TransitionsOverride
+{
+	enabled: boolean;
+	value: number;
 }

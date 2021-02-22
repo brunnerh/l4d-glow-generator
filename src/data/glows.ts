@@ -116,16 +116,3 @@ export interface GlowMetadata
 	cvar: string;
 	description: string;
 }
-
-export interface GlowConfig
-{
-	colors: string[];
-
-	framesPerTransition: framesPerTransitionOverride;
-}
-
-export interface framesPerTransitionOverride
-{
-	enabled: boolean;
-	value: number;
-}

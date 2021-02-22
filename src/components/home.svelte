@@ -10,6 +10,10 @@
 	import { generateScripts } from '../logic/script-generator';
 	import JSZip from 'jszip';
 	import { alert, confirm } from '../utility/dialogs';
+	import ColorsPreview from './colors-preview.svelte';
+	import { sample } from '../data/sample-config';
+	import cloneDeep from 'clone-deep';
+	import { readFile } from '../utility/files';
 
 	const glowHeaders: DataTableHeader[] = [
 		{ key: 'label', value: 'Glow Type' },
@@ -21,11 +25,9 @@
 
 	function getColorCount(currentState: State, cvar: string)
 	{
-		const count = cvar in currentState.config ?
+		return cvar in currentState.config ?
 			currentState.config[cvar].colors.length :
 			0;
-
-		return count > 0 ? count : '';
 	}
 
 	function onEditGlow(cvar: string)
@@ -35,7 +37,65 @@
 
 	async function onLoadConfig()
 	{
-		// TODO
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = '.zip,.json';
+		input.addEventListener('change', loadFile);
+		input.click();
+
+		async function loadFile()
+		{
+			const file = (input.files ?? [])[0];
+			if (file == null)
+				return;
+
+			if (file.name.match(/\.json/i))
+			{
+				const json = await readFile(file, 'string');
+				tryLoadJson(json);
+			}
+			else if (file.name.match(/\.zip/i))
+			{
+				try
+				{
+					const data = await readFile(file, 'buffer');
+					const zip = await JSZip.loadAsync(data);
+					const configFile = zip.files['glows.json'];
+					if (configFile == null)
+					{
+						alert('Error', 'Could not find "glows.json" in ZIP archive.');
+						return;
+					}
+					const configJson = await configFile.async('string');
+					tryLoadJson(configJson);
+				}
+				catch (error)
+				{
+					alert('Error', 'Could not read ZIP archive.');
+				}
+			}
+			else
+			{
+				alert(
+					'Error',
+					'Cannot read this file format. ' +
+					'Only a configuration JSON or the full generated ZIP ' +
+					'are supported.'
+				);
+			}
+		}
+
+		function tryLoadJson(json: string)
+		{
+			try
+			{
+				$state = { ...$state, ...JSON.parse(json) };
+			}
+			catch 
+			{
+				alert('Error', 'Could not read configuration file contents.');
+			}
+		}
 	}
 
 	async function onGenerateScripts()
@@ -50,6 +110,7 @@
 			}
 
 			const zip = new JSZip();
+			zip.file('glows.json', JSON.stringify($state));
 			zip.file('autoexec.cfg', files.map(f => `exec ${f.filename}`).join('\n'));
 			for (const file of files)
 				zip.file(file.filename, file.contents);
@@ -74,16 +135,25 @@
 
 	async function onResetConfig()
 	{
-		if (await confirm('Confirmation', 'Do you really want to reset the configuration?') == false)
+		if (await confirm('Resetting', 'Do you really want to reset the configuration?') == false)
 			return;
 
 		$state = defaultState();
 	}
 
-	function onLoadExampleConfig()
+	async function onLoadExampleConfig()
 	{
-		// TODO
+		if (await confirmLoad() == false)
+			return;
+
+		$state = { ...$state, ...cloneDeep(sample) };
 	}
+
+	const confirmLoad = () => confirm(
+		'Loading Configuration',
+		'Do you really want to load another configuration? ' +
+		'The current configuration will be overwritten.'
+	);
 </script>
 
 <style lang="less">
@@ -100,23 +170,60 @@
 			{
 				text-align: right;
 			}
+
+			.cell-colors
+			{
+				display: block;
+			}
+		}
+
+		summary
+		{
+			cursor: pointer;
 		}
 	}
 </style>
 
 <Tile>
-	This is an outline glow script generator for <em>Left 4 Dead</em> and <em>Left 4 Dead 2</em>.
+	<h4>About</h4>
+
+	<p>This is an animated outline glow script generator for <em>Left 4 Dead</em> and <em>Left 4 Dead 2</em>.</p>
+
+	<details class="mt16">
+		<summary>Installing the generated scripts</summary>
+
+		<p>
+			The archive has to be extracted into the <code>cfg</code> directory of the respective game,
+			the paths are the following:
+		</p>
+
+		<p>L4D: <code>[Steam]/steamapps/common/left 4 dead/left4dead/cfg</code></p>
+		<p>L4D 2: <code>[Steam]/steamapps/common/Left 4 Dead 2/left4dead2/cfg</code></p>
+
+		<p>
+			If an <code>autoexec.cfg</code> file already exists, the contents of the <code>autoexec.cfg</code>
+			in the archive should be appended to the existing file.
+		</p>
+		
+		<p>
+			Changes are applied at the start of the game unless the scripts are executed manually from
+			the developer console.
+		</p>
+	</details>
 </Tile>
 
 <Tile class="mt8">
-	<NumberInput label="Frames per transition"
-		title={
-			'The color transition speed depends on the framerate of the game. ' +
-			'For example, if the game runs at 60 frames per second and one transition takes 30 frames, then ' +
-			'two color transitions per second will happen.'
-		}
+	<h4>Transition Speed</h4>
+
+	<p>Due to the way the scripts get executed, the animation speed is dependent on the framerate.</p>
+
+	<NumberInput label="Frames Per Second (Average)" class="mt16"
 		on:change={state.save}
-		bind:value={$state.framesPerTransition}/>
+		bind:value={$state.averageFramerate}/>
+		
+	<NumberInput label="Color Transitions Per Second" class="mt16"
+		on:change={state.save}
+		bind:value={$state.transitionsPerSecond}/>
 </Tile>
 
 <DataTable class="glow-table mt8"
@@ -128,10 +235,10 @@
 
 	<Toolbar>
 		<ToolbarContent>
-			<!-- <Button icon={Upload20} kind="ghost"
+			<Button icon={Upload20} kind="ghost"
 					on:click={onLoadConfig}>
 				Load Config
-			</Button> -->
+			</Button>
 			<Button icon={Download20}
 					on:click={onGenerateScripts}>
 				Generate Scripts
@@ -141,18 +248,18 @@
 			<ToolbarMenuItem on:click={onResetConfig}>
 				Reset configuration
 			</ToolbarMenuItem>
-			<!-- <ToolbarMenuItem on:click={onLoadExampleConfig}>
+			<ToolbarMenuItem on:click={onLoadExampleConfig}>
 				Load example config
-			</ToolbarMenuItem> -->
+			</ToolbarMenuItem>
 		</ToolbarMenu>
 	</Toolbar>
 
-	<span slot="cell" let:cell let:row>
+	<span slot="cell" let:cell let:row class="cell-{cell.key}">
 		{#if cell.key == 'actions'}
 			<Button icon={ChevronRight20} kind="ghost" iconDescription="Edit"
 				on:click={() => onEditGlow(row.cvar)}/>
 		{:else if cell.key == 'colors'}
-			{getColorCount($state, row.cvar)}
+			<ColorsPreview cvar={row.cvar}/>
 		{:else}
 			{cell.value}
 		{/if}

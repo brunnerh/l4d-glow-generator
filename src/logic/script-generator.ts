@@ -16,9 +16,9 @@ export function generateScripts(state: State)
 
 		const { alias } = metadata;
 		const colorStops = config.colors;
-		const framesPerTransition = config.framesPerTransition.enabled ?
-			config.framesPerTransition.value :
-			state.framesPerTransition;
+		const transitionsPerSecond = config.transitionsPerSecond.enabled ?
+			config.transitionsPerSecond.value :
+			state.transitionsPerSecond;
 
 		const lines: string[] = [];
 
@@ -33,7 +33,7 @@ export function generateScripts(state: State)
 		}
 
 		const gradient = tinygradient(colorStops).loop();
-		const steps = colorStops.length * framesPerTransition;
+		const steps = colorStops.length * (state.averageFramerate / transitionsPerSecond);
 		
 		const colors: Color[] = [];
 		for (let i = 0; i < steps; i++)

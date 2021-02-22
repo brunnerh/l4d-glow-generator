@@ -5,7 +5,7 @@
 		Content,
 		Grid,
 		Header,
-		HeaderGlobalAction,
+		HeaderActionLink,
 		HeaderUtilities,
 		Row,
 		SkipToContent,
@@ -14,6 +14,8 @@
 	import Home from './components/home.svelte';
 	import NotFound from './components/not-found.svelte';
 	import Glow from './components/glow.svelte';
+
+	export let githubUrl: string | null = null;
 
 	const routes = {
 		'/': Home,
@@ -49,8 +51,9 @@
 	</div>
 
 	<HeaderUtilities>
-		<HeaderGlobalAction href="about:blank"
-			icon={LogoGithub20} iconDescription="Repository on GitHub"/>
+		{#if githubUrl}
+			<HeaderActionLink href={githubUrl} icon={LogoGithub20}/>
+		{/if}
 	</HeaderUtilities>
 </Header>
 

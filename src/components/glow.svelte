@@ -38,13 +38,13 @@
 		<Toggle labelText="Custom transition speed"
 			style="flex: 0 0 auto"
 			on:toggle={state.save}
-			bind:toggled={data.config.framesPerTransition.enabled}/>
+			bind:toggled={data.config.transitionsPerSecond.enabled}/>
 
-		{#if data.config.framesPerTransition.enabled}
-			<NumberInput label="Frames per transition"
+		{#if data.config.transitionsPerSecond.enabled}
+			<NumberInput label="Color Transitions Per Second"
 				class="ml32" style="flex: 0 0 auto"
 				on:change={state.save}
-				bind:value={data.config.framesPerTransition.value}/>
+				bind:value={data.config.transitionsPerSecond.value}/>
 		{/if}
 	</div>
 
