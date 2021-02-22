@@ -21,6 +21,11 @@ const config = {
 		'snowpack-plugin-less',
 		["@brunnerh/snowpack-plugin-delegate", constantsPlugin],
 	],
+	optimize: {
+		bundle: true,
+		minify: true,
+		target: 'es2018',
+	},
 };
 
 module.exports = config;
