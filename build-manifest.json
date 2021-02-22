@@ -5,7 +5,7 @@
       "imports": []
     },
     "styles/layout.css": {
-      "bytes": 5016,
+      "bytes": 4980,
       "imports": []
     },
     "styles/theme.css": {
@@ -648,7 +648,7 @@
           "bytesInOutput": 532297
         },
         "styles/layout.css": {
-          "bytesInOutput": 3733
+          "bytesInOutput": 3705
         },
         "styles/theme.css": {
           "bytesInOutput": 454
@@ -669,7 +669,7 @@
           "bytesInOutput": 47
         }
       },
-      "bytes": 536977
+      "bytes": 536949
     }
   }
 }
