@@ -7,27 +7,27 @@
 	import Edit20 from 'carbon-icons-svelte/lib/Edit20';
 	import Delete20 from 'carbon-icons-svelte/lib/Delete20';
 
+	export let colors: string[];
+
+	let selectedRowIds: any[] = [];
+	$: rows = colors.map((c, i) => ({ value: c, id: i }));
+
 	const headers: DataTableHeader[] = [
 		{ key: 'color', value: 'Color' },
 		{ key: 'value', value: 'Value' },
 		{ key: 'actions', empty: true },
 	]
 
-	export let config: GlowConfig;
-
-	let selectedRowIds: any[] = [];
-	$: rows = config.colors.map((c, i) => ({ value: c, id: i }));
-
 	function onAddColor()
 	{
-		config.colors = [...config.colors, '#000000'];
+		colors = [...colors, '#000000'];
 		
 		state.save();
 	}
 
 	function onColorChanged(index: number, value: string)
 	{
-		config.colors = config.colors.map((c, i) => i == index ? value : c);
+		colors = colors.map((c, i) => i == index ? value : c);
 
 		state.save();
 	}
@@ -43,7 +43,7 @@
 
 	function onDeleteColor(index: number)
 	{
-		config.colors = config.colors.filter((e, i) => i != index);
+		colors = colors.filter((e, i) => i != index);
 		
 		state.save();
 	}
@@ -51,9 +51,8 @@
 	function onDeleteBatch()
 	{
 		const ids = new Set(selectedRowIds);
-		const colors = [...config.colors];
 
-		config.colors = colors.filter((c, i) => ids.has(i) == false);
+		colors = colors.filter((c, i) => ids.has(i) == false);
 		selectedRowIds = [];
 
 		state.save();
@@ -64,6 +63,11 @@
 	:global(.colors-table tr td:last-child)
 	{
 		text-align: right;
+	}
+
+	:global(.bx--data-table-header__description)
+	{
+		white-space: pre-line;
 	}
 
 	.color-input
@@ -78,10 +82,9 @@
 <DataTable
 		class="colors-table mt32"
 		title="Colors"
-		description="
-			List of colors that the glow cycles between.
-			The last color transitions to the first.
-			If only one color is used, the glow will be static."
+		description="List of colors that the glow cycles between. The last color transitions to the first. If only one color is used, the glow will be static.
+
+			The darker the color, the higher the transparency, black being fully transparent."
 		{headers} {rows}
 		selectable batchSelection
 		bind:selectedRowIds>

@@ -3,13 +3,13 @@ export const glows: GlowMetadata[] = [
 		label: "Ability",
 		alias: "GlowAbility",
 		cvar: "ability",
-		description: "Infected that pounced a survivor (survivor view)",
+		description: "Infected that grabbed a survivor; applies to hunters, jockeys and chargers (survivor view)",
 	},
 	{
 		label: "Ability (Colorblind)",
 		alias: "GlowAbilityCB",
 		cvar: "ability_colorblind",
-		description: "Infected that pounced a survivor (survivor view, colorblind mode)",
+		description: "Infected that grabbed a survivor, applies to hunters, jockeys and chargers (survivor view, colorblind mode)",
 	},
 	{
 		label: "Ghost Infected",

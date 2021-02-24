@@ -1,10 +1,32 @@
 <script type="text/typescript">
-	import { state } from '../data';
+	export let colors: string[];
+	export let transitionsPerSecond: number;
+	export let animate: boolean;
 
-	export let cvar: string;
+	let element: HTMLDivElement | null = null;
+	let animation: Animation | null = null;
 
-	$: colors = $state.config[cvar]?.colors ?? [];
-	$: gradient = `linear-gradient(to right, ${[...colors, colors[0]].join(', ')}`;
+	$: colorsLooped = colors.length ? [...colors, colors[0]] : [];
+	$: background = `linear-gradient(to right, ${colorsLooped.join(', ')}`
+
+	$: if (element != null)
+	{
+		if (animation)
+			animation.cancel();
+
+		if (animate && colors.length)
+		{
+			animation = element.animate(
+				colorsLooped.map(c => ({
+					background: c,
+				})),
+				{
+					duration: (1000 / transitionsPerSecond) * colors.length,
+					iterations: Infinity,
+				},
+			);
+		}
+	}
 </script>
 
 <style>
@@ -16,5 +38,7 @@
 </style>
 
 {#if colors.length > 0}
-	<div class="preview" style="background: {gradient}" title="{colors.length} Color/s">&nbsp;</div>
+	<div bind:this={element} class="preview"
+		style="background: {background};"
+		title="{colors.length} Color/s">&nbsp;</div>
 {/if}

@@ -6,6 +6,7 @@
 	import ChevronRight20 from 'carbon-icons-svelte/lib/ChevronRight20';
 	import Menu20 from 'carbon-icons-svelte/lib/Menu20';
 	import { defaultState, glows, state } from '../data';
+	import type { State } from '../data';
 	import { generateScripts } from '../logic/script-generator';
 	import JSZip from 'jszip';
 	import { alert, confirm } from '../utility/dialogs';
@@ -13,6 +14,9 @@
 	import { sample } from '../data/sample-config';
 	import cloneDeep from 'clone-deep';
 	import { readFile } from '../utility/files';
+	import { animatedColors } from '../utility/preferences';
+	import TransitionsInput from './utility/transitions-input.svelte';
+	import PlayPauseButton from './utility/play-pause-button.svelte';
 
 	const glowHeaders: DataTableHeader[] = [
 		{ key: 'label', value: 'Glow Type' },
@@ -21,6 +25,20 @@
 		{ key: 'actions', empty: true },
 	]
 	const glowRows = glows.map(g => ({ ...g, id: g.cvar }));
+
+	function getColors(cvar: string, state: State)
+	{
+		return cvar in state.config ?
+			state.config[cvar].colors :
+			[];
+	}
+
+	function getTransitionsPerSecond(cvar: string, defaultValue: number)
+	{
+		return $state.config[cvar]?.transitionsPerSecond.enabled ?
+			$state.config[cvar]?.transitionsPerSecond.value :
+			defaultValue;
+	}
 
 	function onEditGlow(cvar: string)
 	{
@@ -153,7 +171,7 @@
 	{
 		.glow-table
 		{
-			tr
+			tbody tr
 			{
 				cursor: pointer;
 			}
@@ -213,8 +231,7 @@
 		on:change={state.save}
 		bind:value={$state.averageFramerate}/>
 		
-	<NumberInput label="Color Transitions Per Second" class="mt16"
-		on:change={state.save}
+	<TransitionsInput class="mt16"
 		bind:value={$state.transitionsPerSecond}/>
 </Tile>
 
@@ -228,15 +245,24 @@
 	<Toolbar>
 		<ToolbarContent>
 			<Button icon={Upload20} kind="ghost"
-					on:click={onLoadConfig}>
+					on:click={onLoadConfig}
+					title={
+						'Either a ZIP archive generated with this tool, or the "glows.json" ' +
+						'from within the archive can be loaded.'
+					}>
 				Load Config
 			</Button>
 			<Button icon={Download20}
-					on:click={onGenerateScripts}>
+					on:click={onGenerateScripts}
+					title={
+						'Generates scripts that can be loaded in the game. ' +
+						'See the "About" section for more details on how to install ' +
+						'the scripts.'
+					}>
 				Generate Scripts
 			</Button>
 		</ToolbarContent>
-		<ToolbarMenu icon={Menu20}>
+		<ToolbarMenu icon={Menu20} iconDescription="Menu">
 			<ToolbarMenuItem on:click={onResetConfig}>
 				Reset configuration
 			</ToolbarMenuItem>
@@ -246,12 +272,25 @@
 		</ToolbarMenu>
 	</Toolbar>
 
+	<div slot="cell-header"
+			let:header class="flex items-center">
+		{#if header.key == 'colors'}
+			<span class="mr8">{header.value}</span>
+			<PlayPauseButton />
+		{:else}
+			{header.value}
+		{/if}
+	</div>
+
 	<span slot="cell" let:cell let:row class="cell-{cell.key}">
 		{#if cell.key == 'actions'}
 			<Button icon={ChevronRight20} kind="ghost" iconDescription="Edit"
 				on:click={() => onEditGlow(row.cvar)}/>
 		{:else if cell.key == 'colors'}
-			<ColorsPreview cvar={row.cvar}/>
+			<ColorsPreview
+				colors={getColors(row.cvar, $state)}
+				transitionsPerSecond={getTransitionsPerSecond(row.cvar, $state.transitionsPerSecond)}
+				animate={$animatedColors}/>
 		{:else}
 			{cell.value}
 		{/if}
