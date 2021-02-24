@@ -347,7 +347,7 @@
       ]
     },
     "components/home.svelte.js": {
-      "bytes": 31960,
+      "bytes": 31959,
       "imports": [
         {
           "path": "components/home.svelte.css",
@@ -751,7 +751,7 @@
           "bytesInOutput": 554
         },
         "components/home.svelte.js": {
-          "bytesInOutput": 11589
+          "bytesInOutput": 11588
         },
         "components/not-found.svelte.css": {
           "bytesInOutput": 0
@@ -787,7 +787,7 @@
           "bytesInOutput": 115
         }
       },
-      "bytes": 341723
+      "bytes": 341722
     },
     "../~~bundle~~/main.css": {
       "imports": [],
