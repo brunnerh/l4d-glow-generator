@@ -16,7 +16,7 @@ const fixCssBundlePath = {
 		const indexPath = path.join(options.buildDirectory, 'index.html');
 		const index = fs.readFileSync(indexPath, { encoding: 'utf8' });
 		
-		fs.writeFileSync(indexPath, index.replace('/main.css', './main.css'));
+		fs.writeFileSync(indexPath, index.replace(/\/main\.(.*)\.css/, './main.$1.css'));
 	}
 };
 
@@ -31,6 +31,7 @@ const config = {
 	plugins: [
 		'@snowpack/plugin-svelte',
 		'snowpack-plugin-less',
+		'snowpack-plugin-hash',
 		["@brunnerh/snowpack-plugin-delegate", constants],
 		["@brunnerh/snowpack-plugin-delegate", fixCssBundlePath],
 	],
