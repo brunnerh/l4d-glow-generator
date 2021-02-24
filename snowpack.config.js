@@ -5,8 +5,9 @@ const package = JSON.parse(fs.readFileSync('./package.json'));
 
 /** @type {import('snowpack').SnowpackPlugin} */
 const constants = {
-	transform: options => options.contents
-		.replace(/GITHUB_URL/g, JSON.stringify(package.repository.url)),
+	transform: options => ['.ts', '.js', '.svelte'].includes(options.fileExt) ?
+		options.contents.replace(/GITHUB_URL/g, JSON.stringify(package.repository.url)) :
+		options.contents,
 };
 
 /** @type {import('snowpack').SnowpackPlugin} */

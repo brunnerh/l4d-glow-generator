@@ -5,6 +5,7 @@
 	import Download20 from 'carbon-icons-svelte/lib/Download20';
 	import ChevronRight20 from 'carbon-icons-svelte/lib/ChevronRight20';
 	import Menu20 from 'carbon-icons-svelte/lib/Menu20';
+	import DocumentImport20 from 'carbon-icons-svelte/lib/DocumentImport20';
 	import { defaultState, glows, state } from '../data';
 	import type { State } from '../data';
 	import { generateScripts } from '../logic/script-generator';
@@ -18,13 +19,17 @@
 	import TransitionsInput from './utility/transitions-input.svelte';
 	import PlayPauseButton from './utility/play-pause-button.svelte';
 
-	const glowHeaders: DataTableHeader[] = [
+	$: glowHeaders = [
 		{ key: 'label', value: 'Glow Type' },
-		{ key: 'description', value: 'Description' },
+		innerWidth > 480 ? { key: 'description', value: 'Description' } : null,
 		{ key: 'colors', value: 'Colors' },
 		{ key: 'actions', empty: true },
-	]
+	].filter(Boolean) as DataTableHeader[];
+
 	const glowRows = glows.map(g => ({ ...g, id: g.cvar }));
+
+	let showVideo = false;
+	let innerWidth: number = Infinity;
 
 	function getColors(cvar: string, state: State)
 	{
@@ -38,6 +43,12 @@
 		return $state.config[cvar]?.transitionsPerSecond.enabled ?
 			$state.config[cvar]?.transitionsPerSecond.value :
 			defaultValue;
+	}
+
+	function onToggleExample(e: Event)
+	{
+		const details = e.currentTarget as HTMLDetailsElement;
+		showVideo = details.open;
 	}
 
 	function onEditGlow(cvar: string)
@@ -153,7 +164,10 @@
 
 	async function onLoadExampleConfig()
 	{
-		if (await confirmLoad() == false)
+		const colorCount = Object.entries($state.config)
+			.map(x => x[1].colors.length)
+			.reduce((x, acc) => acc + x, 0);
+		if (colorCount > 0 && await confirmLoad() == false)
 			return;
 
 		$state = { ...$state, ...cloneDeep(sample) };
@@ -186,18 +200,46 @@
 				display: block;
 			}
 		}
+	}
 
-		summary
-		{
-			cursor: pointer;
-		}
+	summary
+	{
+		cursor: pointer;
+	}
+
+	video
+	{
+		width: 100%;
+		max-width: 800px;
 	}
 </style>
+
+<svelte:window bind:innerWidth />
 
 <Tile>
 	<h4>About</h4>
 
 	<p>This is an animated outline glow script generator for <em>Left 4 Dead</em> and <em>Left 4 Dead 2</em>.</p>
+
+	<details class="mt16" on:toggle={onToggleExample}>
+		<summary>Example</summary>
+
+		<p>
+			Demonstration of <code>Item</code> and <code>Item Far</code> glows.
+		</p>
+
+		{#if showVideo}
+			<video src="../data/example-video.webm" class="mt8"
+				autoplay loop muted />
+		{/if}
+
+		<div class="mt8">
+			<Button icon={DocumentImport20}
+				on:click={onLoadExampleConfig}>
+				Load example config
+			</Button>
+		</div>
+	</details>
 
 	<details class="mt16">
 		<summary>Installing the generated scripts</summary>
@@ -230,7 +272,7 @@
 	<NumberInput label="Frames Per Second (Average)" class="mt16"
 		on:change={state.save}
 		bind:value={$state.averageFramerate}/>
-		
+
 	<TransitionsInput class="mt16"
 		bind:value={$state.transitionsPerSecond}/>
 </Tile>
@@ -265,9 +307,6 @@
 		<ToolbarMenu icon={Menu20} iconDescription="Menu">
 			<ToolbarMenuItem on:click={onResetConfig}>
 				Reset configuration
-			</ToolbarMenuItem>
-			<ToolbarMenuItem on:click={onLoadExampleConfig}>
-				Load example config
 			</ToolbarMenuItem>
 		</ToolbarMenu>
 	</Toolbar>
