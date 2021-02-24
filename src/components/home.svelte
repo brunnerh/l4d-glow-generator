@@ -229,7 +229,7 @@
 		</p>
 
 		{#if showVideo}
-			<video src="../data/example-video.webm" class="mt8"
+			<video src="./data/example-video.webm" class="mt8"
 				autoplay loop muted />
 		{/if}
 
