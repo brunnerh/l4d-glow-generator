@@ -5,7 +5,7 @@
       "imports": []
     },
     "styles/layout.css": {
-      "bytes": 4980,
+      "bytes": 5016,
       "imports": []
     },
     "styles/theme.css": {
@@ -16,24 +16,24 @@
       "bytes": 139,
       "imports": []
     },
-    "_snowpack/pkg/common/index-543e3b1c.js": {
+    "_snowpack/pkg/common/index-35ea2617.js": {
       "bytes": 18928,
       "imports": []
     },
     "_snowpack/pkg/svelte/internal.js": {
-      "bytes": 541,
+      "bytes": 657,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
     },
-    "_snowpack/pkg/common/index-119917ba.js": {
+    "_snowpack/pkg/common/index-62c2e692.js": {
       "bytes": 3291,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
@@ -42,37 +42,37 @@
       "bytes": 27608,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         },
         {
-          "path": "_snowpack/pkg/common/index-119917ba.js",
+          "path": "_snowpack/pkg/common/index-62c2e692.js",
           "kind": "import-statement"
         }
       ]
     },
-    "_snowpack/pkg/common/Menu20-02661841.js": {
+    "_snowpack/pkg/common/Menu20-c89681f0.js": {
       "bytes": 7341,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
     },
     "_snowpack/pkg/carbon-components-svelte.js": {
-      "bytes": 408970,
+      "bytes": 423901,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         },
         {
-          "path": "_snowpack/pkg/common/index-119917ba.js",
+          "path": "_snowpack/pkg/common/index-62c2e692.js",
           "kind": "import-statement"
         },
         {
-          "path": "_snowpack/pkg/common/Menu20-02661841.js",
+          "path": "_snowpack/pkg/common/Menu20-c89681f0.js",
           "kind": "import-statement"
         }
       ]
@@ -81,20 +81,20 @@
       "bytes": 7827,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
     },
     "components/home.svelte.css": {
-      "bytes": 138,
+      "bytes": 207,
       "imports": []
     },
     "_snowpack/pkg/carbon-icons-svelte/lib/Upload20.js": {
       "bytes": 7391,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
@@ -103,7 +103,7 @@
       "bytes": 7410,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
@@ -112,7 +112,7 @@
       "bytes": 7352,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
@@ -121,32 +121,41 @@
       "bytes": 168,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/Menu20-02661841.js",
+          "path": "_snowpack/pkg/common/Menu20-c89681f0.js",
           "kind": "import-statement"
         },
         {
-          "path": "_snowpack/pkg/common/Menu20-02661841.js",
+          "path": "_snowpack/pkg/common/Menu20-c89681f0.js",
           "kind": "import-statement"
         },
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "_snowpack/pkg/carbon-icons-svelte/lib/DocumentImport20.js": {
+      "bytes": 7646,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
     },
     "data/glows.js": {
-      "bytes": 3205,
+      "bytes": 3289,
       "imports": []
     },
     "_snowpack/pkg/svelte/store.js": {
       "bytes": 118,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-119917ba.js",
+          "path": "_snowpack/pkg/common/index-62c2e692.js",
           "kind": "import-statement"
         },
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
@@ -244,7 +253,7 @@
       "imports": []
     },
     "components/colors-preview.svelte.js": {
-      "bytes": 2868,
+      "bytes": 3688,
       "imports": [
         {
           "path": "components/colors-preview.svelte.css",
@@ -252,10 +261,6 @@
         },
         {
           "path": "_snowpack/pkg/svelte/internal.js",
-          "kind": "import-statement"
-        },
-        {
-          "path": "data/index.js",
           "kind": "import-statement"
         }
       ]
@@ -272,8 +277,77 @@
       "bytes": 415,
       "imports": []
     },
+    "utility/preferences.js": {
+      "bytes": 221,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/svelte/store.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "components/utility/transitions-input.svelte.js": {
+      "bytes": 2941,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/svelte/internal.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/carbon-components-svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "data/index.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "_snowpack/pkg/carbon-icons-svelte/lib/Play20.js": {
+      "bytes": 7390,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "_snowpack/pkg/carbon-icons-svelte/lib/Pause20.js": {
+      "bytes": 7422,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "components/utility/play-pause-button.svelte.js": {
+      "bytes": 2212,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/svelte/internal.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/carbon-components-svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "utility/preferences.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/carbon-icons-svelte/lib/Play20.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/carbon-icons-svelte/lib/Pause20.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
     "components/home.svelte.js": {
-      "bytes": 23425,
+      "bytes": 31960,
       "imports": [
         {
           "path": "components/home.svelte.css",
@@ -301,6 +375,10 @@
         },
         {
           "path": "_snowpack/pkg/carbon-icons-svelte/lib/Menu20.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/carbon-icons-svelte/lib/DocumentImport20.js",
           "kind": "import-statement"
         },
         {
@@ -334,6 +412,18 @@
         {
           "path": "utility/files.js",
           "kind": "import-statement"
+        },
+        {
+          "path": "utility/preferences.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "components/utility/transitions-input.svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "components/utility/play-pause-button.svelte.js",
+          "kind": "import-statement"
         }
       ]
     },
@@ -355,14 +445,14 @@
       ]
     },
     "components/color-table.svelte.css": {
-      "bytes": 125,
+      "bytes": 182,
       "imports": []
     },
     "_snowpack/pkg/carbon-icons-svelte/lib/Add20.js": {
       "bytes": 7322,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
@@ -371,7 +461,7 @@
       "bytes": 7436,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
@@ -380,13 +470,13 @@
       "bytes": 7472,
       "imports": [
         {
-          "path": "_snowpack/pkg/common/index-543e3b1c.js",
+          "path": "_snowpack/pkg/common/index-35ea2617.js",
           "kind": "import-statement"
         }
       ]
     },
     "components/color-table.svelte.js": {
-      "bytes": 15284,
+      "bytes": 15300,
       "imports": [
         {
           "path": "components/color-table.svelte.css",
@@ -418,8 +508,8 @@
         }
       ]
     },
-    "components/glow.svelte.js": {
-      "bytes": 13605,
+    "components/glow-content.svelte.js": {
+      "bytes": 11848,
       "imports": [
         {
           "path": "_snowpack/pkg/svelte/internal.js",
@@ -434,7 +524,44 @@
           "kind": "import-statement"
         },
         {
+          "path": "utility/preferences.js",
+          "kind": "import-statement"
+        },
+        {
           "path": "components/color-table.svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "components/colors-preview.svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "components/utility/play-pause-button.svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "components/utility/transitions-input.svelte.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "components/glow.svelte.js": {
+      "bytes": 9065,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/svelte/internal.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/carbon-components-svelte.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "data/index.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "components/glow-content.svelte.js",
           "kind": "import-statement"
         },
         {
@@ -521,44 +648,47 @@
         "app.svelte.css": {
           "bytesInOutput": 0
         },
-        "_snowpack/pkg/common/index-543e3b1c.js": {
-          "bytesInOutput": 6475
+        "_snowpack/pkg/common/index-35ea2617.js": {
+          "bytesInOutput": 6472
         },
         "_snowpack/pkg/svelte/internal.js": {
           "bytesInOutput": 0
         },
-        "_snowpack/pkg/common/index-119917ba.js": {
+        "_snowpack/pkg/common/index-62c2e692.js": {
           "bytesInOutput": 759
         },
         "_snowpack/pkg/svelte-spa-router.js": {
           "bytesInOutput": 5159
         },
-        "_snowpack/pkg/common/Menu20-02661841.js": {
-          "bytesInOutput": 2399
+        "_snowpack/pkg/common/Menu20-c89681f0.js": {
+          "bytesInOutput": 2398
         },
         "_snowpack/pkg/carbon-components-svelte.js": {
-          "bytesInOutput": 134140
+          "bytesInOutput": 139851
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/LogoGithub20.js": {
-          "bytesInOutput": 2846
+          "bytesInOutput": 2844
         },
         "components/home.svelte.css": {
           "bytesInOutput": 0
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/Upload20.js": {
-          "bytesInOutput": 2437
+          "bytesInOutput": 2436
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/Download20.js": {
-          "bytesInOutput": 2448
+          "bytesInOutput": 2447
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/ChevronRight20.js": {
-          "bytesInOutput": 2374
+          "bytesInOutput": 2373
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/Menu20.js": {
           "bytesInOutput": 0
         },
+        "_snowpack/pkg/carbon-icons-svelte/lib/DocumentImport20.js": {
+          "bytesInOutput": 2598
+        },
         "data/glows.js": {
-          "bytesInOutput": 2649
+          "bytesInOutput": 2733
         },
         "data/index.js": {
           "bytesInOutput": 0
@@ -582,7 +712,7 @@
           "bytesInOutput": 1055
         },
         "_snowpack/pkg/jszip.js": {
-          "bytesInOutput": 100632
+          "bytesInOutput": 100847
         },
         "components/utility/message-dialog.svelte.js": {
           "bytesInOutput": 1714
@@ -594,7 +724,7 @@
           "bytesInOutput": 0
         },
         "components/colors-preview.svelte.js": {
-          "bytesInOutput": 957
+          "bytesInOutput": 1263
         },
         "data/sample-config.js": {
           "bytesInOutput": 1307
@@ -605,41 +735,59 @@
         "utility/files.js": {
           "bytesInOutput": 221
         },
+        "utility/preferences.js": {
+          "bytesInOutput": 75
+        },
+        "components/utility/transitions-input.svelte.js": {
+          "bytesInOutput": 802
+        },
+        "_snowpack/pkg/carbon-icons-svelte/lib/Play20.js": {
+          "bytesInOutput": 2443
+        },
+        "_snowpack/pkg/carbon-icons-svelte/lib/Pause20.js": {
+          "bytesInOutput": 2471
+        },
+        "components/utility/play-pause-button.svelte.js": {
+          "bytesInOutput": 554
+        },
         "components/home.svelte.js": {
-          "bytesInOutput": 8751
+          "bytesInOutput": 11589
         },
         "components/not-found.svelte.css": {
           "bytesInOutput": 0
         },
         "components/not-found.svelte.js": {
-          "bytesInOutput": 227
+          "bytesInOutput": 226
         },
         "components/color-table.svelte.css": {
           "bytesInOutput": 0
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/Add20.js": {
-          "bytesInOutput": 2380
+          "bytesInOutput": 2379
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/Edit20.js": {
-          "bytesInOutput": 2490
+          "bytesInOutput": 2489
         },
         "_snowpack/pkg/carbon-icons-svelte/lib/Delete20.js": {
-          "bytesInOutput": 2458
+          "bytesInOutput": 2456
         },
         "components/color-table.svelte.js": {
-          "bytesInOutput": 4959
+          "bytesInOutput": 4949
+        },
+        "components/glow-content.svelte.js": {
+          "bytesInOutput": 3840
         },
         "components/glow.svelte.js": {
-          "bytesInOutput": 4397
+          "bytesInOutput": 2566
         },
         "app.svelte.js": {
-          "bytesInOutput": 3074
+          "bytesInOutput": 3072
         },
         "main.js": {
           "bytesInOutput": 115
         }
       },
-      "bytes": 321643
+      "bytes": 341723
     },
     "../~~bundle~~/main.css": {
       "imports": [],
@@ -648,7 +796,7 @@
           "bytesInOutput": 532297
         },
         "styles/layout.css": {
-          "bytesInOutput": 3705
+          "bytesInOutput": 3733
         },
         "styles/theme.css": {
           "bytesInOutput": 454
@@ -657,19 +805,19 @@
           "bytesInOutput": 139
         },
         "components/home.svelte.css": {
-          "bytesInOutput": 138
+          "bytesInOutput": 207
         },
         "components/not-found.svelte.css": {
           "bytesInOutput": 43
         },
-        "components/color-table.svelte.css": {
-          "bytesInOutput": 125
-        },
         "components/colors-preview.svelte.css": {
           "bytesInOutput": 47
+        },
+        "components/color-table.svelte.css": {
+          "bytesInOutput": 182
         }
       },
-      "bytes": 536949
+      "bytes": 537103
     }
   }
 }
