@@ -1,5 +1,6 @@
 /node_modules
 /out
+/.fonts
 /.vscode
 /.svelte-kit
 /.svelte
