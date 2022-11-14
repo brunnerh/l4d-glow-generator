@@ -15,9 +15,10 @@
 	import PlayPauseButton from '$lib/play-pause-button.svelte';
 	import type { DataTableHeader } from 'carbon-components-svelte/types/DataTable/DataTable.svelte';
 	import exampleSrc from '$src/data/example-video.webm';
-    import { gotoHref } from '$src/utility/links';
-    import { goto } from '$app/navigation';
-    import Flex from '$lib/flex.svelte';
+	import { gotoHref } from '$src/utility/links';
+	import { goto } from '$app/navigation';
+	import Flex from '$lib/flex.svelte';
+	import { base } from '$app/paths';
 
 	$: glowHeaders = [
 		{ key: 'label', value: 'Glow Type' },
@@ -283,7 +284,7 @@
 	<span slot="cell" let:cell let:row class="cell-{cell.key}">
 		{#if cell.key == 'actions'}
 			<Button icon={ChevronRight} kind="ghost" iconDescription="Edit"
-				href="/glow/{row.cvar}"
+				href="{base}/glow/{row.cvar}"
 				on:click={gotoHref}/>
 		{:else if cell.key == 'colors'}
 			<ColorsPreview

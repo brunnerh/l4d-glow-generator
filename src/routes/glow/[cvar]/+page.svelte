@@ -3,7 +3,8 @@
 	import { glows, state, getConfig } from '$src/data';
 	import GlowContent from './glow-content.svelte';
 	import NotFound from '$lib/not-found.svelte';
-    import { page } from '$app/stores';
+	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 	
 	$: ({ cvar } = $page.params);
 	$: data = cvar == null ? null : getData(cvar);
@@ -21,7 +22,7 @@
 </script>
 
 <Breadcrumb noTrailingSlash>
-	<BreadcrumbItem href="/">Glows</BreadcrumbItem>
+	<BreadcrumbItem href="{base}/">Glows</BreadcrumbItem>
 	{#if data}
 		<BreadcrumbItem>{data.metadata.label}</BreadcrumbItem>
 	{/if}

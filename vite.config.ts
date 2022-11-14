@@ -7,7 +7,7 @@ import pkg from './package.json';
 export default defineConfig(config =>
 {
 	const { command } = config;
-	
+
 	return {
 		define: {
 			GITHUB_URL: JSON.stringify(pkg.repository.url),

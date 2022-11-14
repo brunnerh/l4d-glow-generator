@@ -15,6 +15,7 @@
 	import { LogoGithub } from 'carbon-icons-svelte';
 	import { onMount } from 'svelte';
 	import { animatedColors } from '../utility/preferences';
+	import { base } from '$app/paths';
 
 	let mounted = false;
 
@@ -46,7 +47,7 @@
 		<SkipToContent />
 	</div>
 	<div slot="platform">
-		<a class="home-link" href="/">
+		<a class="home-link" href="{base}/">
 			<h1>L4D Glow Generator</h1>
 		</a>
 	</div>
