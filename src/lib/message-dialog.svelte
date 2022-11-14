@@ -1,4 +1,4 @@
-<script type="text/typescript">
+<script lang="ts">
 	import { Modal } from 'carbon-components-svelte';
 
 	export let title: string;

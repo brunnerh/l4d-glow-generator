@@ -1,23 +1,23 @@
-<script type="text/typescript">
-	import { Button, DataTable, NumberInput, Tile, Toolbar, ToolbarContent, ToolbarMenu, ToolbarMenuItem } from 'carbon-components-svelte';
-	import type { DataTableHeader } from 'carbon-components-svelte/types/DataTable/DataTable';
-	import Upload20 from 'carbon-icons-svelte/lib/Upload20';
-	import Download20 from 'carbon-icons-svelte/lib/Download20';
-	import ChevronRight20 from 'carbon-icons-svelte/lib/ChevronRight20';
-	import Menu20 from 'carbon-icons-svelte/lib/Menu20';
-	import DocumentImport20 from 'carbon-icons-svelte/lib/DocumentImport20';
-	import { defaultState, glows, state } from '../data';
-	import type { State } from '../data';
-	import { generateScripts } from '../logic/script-generator';
+<script lang="ts">
+	import { Accordion, AccordionItem, Button, DataTable, NumberInput, Tile, Toolbar, ToolbarContent, ToolbarMenu, ToolbarMenuItem } from 'carbon-components-svelte';
+	import { Upload, Download, ChevronRight, Menu, DocumentImport }from 'carbon-icons-svelte';
+	import { defaultState, glows, state } from '$src/data';
+	import type { State } from '$src/data';
+	import { generateScripts } from '$src/logic/script-generator';
 	import JSZip from 'jszip';
-	import { alert, confirm } from '../utility/dialogs';
-	import ColorsPreview from './colors-preview.svelte';
-	import { sample } from '../data/sample-config';
+	import ColorsPreview from '$lib/colors-preview.svelte';
+	import { sample } from '$src/data/sample-config';
 	import cloneDeep from 'clone-deep';
-	import { readFile } from '../utility/files';
-	import { animatedColors } from '../utility/preferences';
-	import TransitionsInput from './utility/transitions-input.svelte';
-	import PlayPauseButton from './utility/play-pause-button.svelte';
+	import { alert, confirm } from '$src/utility/dialogs';
+	import { readFile } from '$src/utility/files';
+	import { animatedColors } from '$src/utility/preferences';
+	import TransitionsInput from '$lib/transitions-input.svelte';
+	import PlayPauseButton from '$lib/play-pause-button.svelte';
+	import type { DataTableHeader } from 'carbon-components-svelte/types/DataTable/DataTable.svelte';
+	import exampleSrc from '$src/data/example-video.webm';
+    import { gotoHref } from '$src/utility/links';
+    import { goto } from '$app/navigation';
+    import Flex from '$lib/flex.svelte';
 
 	$: glowHeaders = [
 		{ key: 'label', value: 'Glow Type' },
@@ -45,15 +45,9 @@
 			defaultValue;
 	}
 
-	function onToggleExample(e: Event)
-	{
-		const details = e.currentTarget as HTMLDetailsElement;
-		showVideo = details.open;
-	}
-
 	function onEditGlow(cvar: string)
 	{
-		document.location.href = `#/glow/${cvar}`;
+		goto(`/glow/${cvar}`);
 	}
 
 	async function onLoadConfig()
@@ -131,7 +125,7 @@
 			}
 
 			const zip = new JSZip();
-			zip.file('glows.json', JSON.stringify($state));
+			zip.file('glows.json', JSON.stringify($state, null, 2));
 			zip.file('autoexec.cfg', files.map(f => `exec ${f.filename}`).join('\n'));
 			for (const file of files)
 				zip.file(file.filename, file.contents);
@@ -180,6 +174,128 @@
 	);
 </script>
 
+<svelte:window bind:innerWidth />
+
+<Tile>
+	<h4>About</h4>
+
+	<p>This is an animated outline glow script generator for <em>Left 4 Dead</em> and <em>Left 4 Dead 2</em>.</p>
+
+	<Accordion class="mt16" align="start">
+		<AccordionItem title="Example" bind:open={showVideo}>
+			<p>
+				Demonstration of <code>Item</code> and <code>Item Far</code> glows.
+			</p>
+
+			{#if showVideo}
+				<video src={exampleSrc} class="mt8"
+					autoplay loop muted />
+			{/if}
+
+			<div class="mt8">
+				<Button icon={DocumentImport}
+					on:click={onLoadExampleConfig}>
+					Load example config
+				</Button>
+			</div>
+		</AccordionItem>
+
+		<AccordionItem title="Installing the generated scripts">
+			<p>
+				The archive has to be extracted into the <code>cfg</code> directory of the respective game,
+				the paths are the following:
+			</p>
+
+			<p>L4D: <code>[Steam]/steamapps/common/left 4 dead/left4dead/cfg</code></p>
+			<p>L4D 2: <code>[Steam]/steamapps/common/Left 4 Dead 2/left4dead2/cfg</code></p>
+
+			<p>
+				If an <code>autoexec.cfg</code> file already exists, the contents of the <code>autoexec.cfg</code>
+				in the archive should be appended to the existing file.
+			</p>
+			
+			<p>
+				Changes are applied at the start of the game unless the scripts are executed manually from
+				the developer console.
+			</p>
+		</AccordionItem>
+	</Accordion>
+</Tile>
+
+<Tile class="mt8">
+	<h4>Transition Speed</h4>
+
+	<Flex direction="column" gap="16px" alignItems="flex-start">
+		<p>Due to the way the scripts get executed, the animation speed is dependent on the framerate.</p>
+
+		<NumberInput label="Frames Per Second (Average)"
+			on:change={state.save}
+			bind:value={$state.averageFramerate}/>
+
+		<TransitionsInput
+			bind:value={$state.transitionsPerSecond}/>
+	</Flex>
+</Tile>
+
+<DataTable class="glow-table mt8"
+	title="Glow Configurations"
+	description=""
+	headers={glowHeaders}
+	rows={glowRows}
+	on:click:row={e => onEditGlow(e.detail.cvar)}>
+	<Toolbar>
+		<ToolbarContent>
+			<Button icon={Upload} kind="ghost"
+					on:click={onLoadConfig}
+					title={
+						'Either a ZIP archive generated with this tool, or the "glows.json" ' +
+						'from within the archive can be loaded.'
+					}>
+				Load Config
+			</Button>
+			<Button icon={Download}
+					on:click={onGenerateScripts}
+					title={
+						'Generates scripts that can be loaded in the game. ' +
+						'See the "About" section for more details on how to install ' +
+						'the scripts.'
+					}>
+				Generate Scripts
+			</Button>
+		</ToolbarContent>
+		<ToolbarMenu icon={Menu} iconDescription="Menu">
+			<ToolbarMenuItem on:click={onResetConfig}>
+				Reset configuration
+			</ToolbarMenuItem>
+		</ToolbarMenu>
+	</Toolbar>
+
+	<div slot="cell-header"
+			let:header class="flex items-center">
+		{#if header.key == 'colors'}
+			<span class="mr8">{header.value}</span>
+			<PlayPauseButton />
+		{:else}
+			{header.value}
+		{/if}
+	</div>
+
+	<span slot="cell" let:cell let:row class="cell-{cell.key}">
+		{#if cell.key == 'actions'}
+			<Button icon={ChevronRight} kind="ghost" iconDescription="Edit"
+				href="/glow/{row.cvar}"
+				on:click={gotoHref}/>
+		{:else if cell.key == 'colors'}
+			<ColorsPreview
+				colors={getColors(row.cvar, $state)}
+				transitionsPerSecond={getTransitionsPerSecond(row.cvar, $state.transitionsPerSecond)}
+				animate={$animatedColors}/>
+		{:else}
+			{cell.value}
+		{/if}
+	</span>
+</DataTable>
+
 <style lang="less">
 	:global
 	{
@@ -202,136 +318,9 @@
 		}
 	}
 
-	summary
-	{
-		cursor: pointer;
-	}
-
 	video
 	{
 		width: 100%;
 		max-width: 800px;
 	}
 </style>
-
-<svelte:window bind:innerWidth />
-
-<Tile>
-	<h4>About</h4>
-
-	<p>This is an animated outline glow script generator for <em>Left 4 Dead</em> and <em>Left 4 Dead 2</em>.</p>
-
-	<details class="mt16" on:toggle={onToggleExample}>
-		<summary>Example</summary>
-
-		<p>
-			Demonstration of <code>Item</code> and <code>Item Far</code> glows.
-		</p>
-
-		{#if showVideo}
-			<video src="./data/example-video.webm" class="mt8"
-				autoplay loop muted />
-		{/if}
-
-		<div class="mt8">
-			<Button icon={DocumentImport20}
-				on:click={onLoadExampleConfig}>
-				Load example config
-			</Button>
-		</div>
-	</details>
-
-	<details class="mt16">
-		<summary>Installing the generated scripts</summary>
-
-		<p>
-			The archive has to be extracted into the <code>cfg</code> directory of the respective game,
-			the paths are the following:
-		</p>
-
-		<p>L4D: <code>[Steam]/steamapps/common/left 4 dead/left4dead/cfg</code></p>
-		<p>L4D 2: <code>[Steam]/steamapps/common/Left 4 Dead 2/left4dead2/cfg</code></p>
-
-		<p>
-			If an <code>autoexec.cfg</code> file already exists, the contents of the <code>autoexec.cfg</code>
-			in the archive should be appended to the existing file.
-		</p>
-		
-		<p>
-			Changes are applied at the start of the game unless the scripts are executed manually from
-			the developer console.
-		</p>
-	</details>
-</Tile>
-
-<Tile class="mt8">
-	<h4>Transition Speed</h4>
-
-	<p>Due to the way the scripts get executed, the animation speed is dependent on the framerate.</p>
-
-	<NumberInput label="Frames Per Second (Average)" class="mt16"
-		on:change={state.save}
-		bind:value={$state.averageFramerate}/>
-
-	<TransitionsInput class="mt16"
-		bind:value={$state.transitionsPerSecond}/>
-</Tile>
-
-<DataTable class="glow-table mt8"
-	title="Glow Configurations"
-	description=""
-	headers={glowHeaders}
-	rows={glowRows}
-	on:click:row={e => onEditGlow(e.detail.cvar)}>
-
-	<Toolbar>
-		<ToolbarContent>
-			<Button icon={Upload20} kind="ghost"
-					on:click={onLoadConfig}
-					title={
-						'Either a ZIP archive generated with this tool, or the "glows.json" ' +
-						'from within the archive can be loaded.'
-					}>
-				Load Config
-			</Button>
-			<Button icon={Download20}
-					on:click={onGenerateScripts}
-					title={
-						'Generates scripts that can be loaded in the game. ' +
-						'See the "About" section for more details on how to install ' +
-						'the scripts.'
-					}>
-				Generate Scripts
-			</Button>
-		</ToolbarContent>
-		<ToolbarMenu icon={Menu20} iconDescription="Menu">
-			<ToolbarMenuItem on:click={onResetConfig}>
-				Reset configuration
-			</ToolbarMenuItem>
-		</ToolbarMenu>
-	</Toolbar>
-
-	<div slot="cell-header"
-			let:header class="flex items-center">
-		{#if header.key == 'colors'}
-			<span class="mr8">{header.value}</span>
-			<PlayPauseButton />
-		{:else}
-			{header.value}
-		{/if}
-	</div>
-
-	<span slot="cell" let:cell let:row class="cell-{cell.key}">
-		{#if cell.key == 'actions'}
-			<Button icon={ChevronRight20} kind="ghost" iconDescription="Edit"
-				on:click={() => onEditGlow(row.cvar)}/>
-		{:else if cell.key == 'colors'}
-			<ColorsPreview
-				colors={getColors(row.cvar, $state)}
-				transitionsPerSecond={getTransitionsPerSecond(row.cvar, $state.transitionsPerSecond)}
-				animate={$animatedColors}/>
-		{:else}
-			{cell.value}
-		{/if}
-	</span>
-</DataTable>

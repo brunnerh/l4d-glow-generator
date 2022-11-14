@@ -1,4 +1,4 @@
-<script type="text/typescript">
+<script lang="ts">
 	export let colors: string[];
 	export let transitionsPerSecond: number;
 	export let animate: boolean;
@@ -29,6 +29,12 @@
 	}
 </script>
 
+{#if colors.length > 0}
+	<div bind:this={element} class="preview"
+		style="background: {background};"
+		title="{colors.length} Color/s">&nbsp;</div>
+{/if}
+
 <style>
 	.preview
 	{
@@ -36,9 +42,3 @@
 		height: 100%;
 	}
 </style>
-
-{#if colors.length > 0}
-	<div bind:this={element} class="preview"
-		style="background: {background};"
-		title="{colors.length} Color/s">&nbsp;</div>
-{/if}

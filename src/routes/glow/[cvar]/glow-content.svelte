@@ -1,12 +1,12 @@
-<script type="text/typescript">
+<script lang="ts">
 	import { Toggle, Tile } from 'carbon-components-svelte';
-	import { state } from '../data';
-	import type { GlowConfig, GlowMetadata } from '../data';
-	import { animatedColors } from '../utility/preferences';
+	import { state } from '$src/data';
+	import type { GlowConfig, GlowMetadata } from '$src/data';
+	import { animatedColors } from '$src/utility/preferences';
 	import ColorTable from './color-table.svelte';
-	import ColorsPreview from './colors-preview.svelte';
-	import PlayPauseButton from './utility/play-pause-button.svelte';
-	import TransitionsInput from './utility/transitions-input.svelte';
+	import ColorsPreview from '$lib/colors-preview.svelte';
+	import PlayPauseButton from '$lib/play-pause-button.svelte';
+	import TransitionsInput from '$lib/transitions-input.svelte';
 
 	export let metadata: GlowMetadata;
 	export let config: GlowConfig;

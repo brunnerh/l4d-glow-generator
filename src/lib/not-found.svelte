@@ -1,3 +1,5 @@
+<h2>Not Found</h2>
+
 <style>
 	h2
 	{
@@ -5,5 +7,3 @@
 		opacity: 0.7;
 	}
 </style>
-
-<h2>Not Found</h2>

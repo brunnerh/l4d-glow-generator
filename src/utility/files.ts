@@ -1,4 +1,5 @@
-export function readFile<T extends 'string' | 'buffer'>(file: File, method: T) : Promise<T extends 'string' ? string : ArrayBuffer>
+export function readFile<T extends 'string' | 'buffer'>(file: File, method: T):
+	Promise<T extends 'string' ? string : ArrayBuffer>
 {
 	return new Promise((res, rej) =>
 	{

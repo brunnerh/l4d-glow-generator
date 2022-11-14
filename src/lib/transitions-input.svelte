@@ -1,6 +1,6 @@
-<script type="text/typescript">
+<script lang="ts">
 	import { Slider } from 'carbon-components-svelte';
-	import { state } from '../../data';
+	import { state } from '$src/data';
 
 	export let value: number;
 </script>

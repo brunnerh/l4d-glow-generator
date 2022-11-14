@@ -1,4 +1,4 @@
-import MessageDialog from '../components/utility/message-dialog.svelte';
+import MessageDialog from '$lib/message-dialog.svelte';
 
 export function alert(title: string, message: string)
 {
@@ -39,7 +39,7 @@ export function confirm(title: string, message: string)
 				{
 					result = true;
 
-					dialog.$$set!({ open: false });
+					dialog.$set!({ open: false });
 				},
 			},
 		});

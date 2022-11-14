@@ -1,17 +1,24 @@
 {
-	"include": ["**/*.ts"],
-	"exclude": ["node_modules/*"],
+	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"strict": true,
-		"target": "ES2019",
+		"target": "es2020",
 		"moduleResolution": "node",
+		"module": "es2020",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"downlevelIteration": true,
 		"importsNotUsedAsValues": "error",
 		"isolatedModules": true,
+		"resolveJsonModule": true,
 		"sourceMap": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"types": ["svelte"]
+		"allowJs": true,
+		"checkJs": true,
+		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"],
+			"$src/*": ["src/*"]
+		},
 	}
 }

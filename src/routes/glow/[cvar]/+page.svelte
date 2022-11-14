@@ -1,17 +1,16 @@
-<script type="text/typescript">
+<script lang="ts">
 	import { Breadcrumb, BreadcrumbItem } from 'carbon-components-svelte';
-	import { glows, state, getConfig } from '../data';
+	import { glows, state, getConfig } from '$src/data';
 	import GlowContent from './glow-content.svelte';
-	import NotFound from './not-found.svelte';
-
-	export let params: { cvar: string } | null = null;
+	import NotFound from '$lib/not-found.svelte';
+    import { page } from '$app/stores';
 	
-	$: cvar = params?.cvar ?? null;
+	$: ({ cvar } = $page.params);
 	$: data = cvar == null ? null : getData(cvar);
 
 	function getData(cvar: string)
 	{
-		const metadata = glows.find(g => g.cvar == params!.cvar);
+		const metadata = glows.find(g => g.cvar == cvar);
 		if (metadata == null)
 			return null;
 		
@@ -22,7 +21,7 @@
 </script>
 
 <Breadcrumb noTrailingSlash>
-	<BreadcrumbItem href="#/">Glows</BreadcrumbItem>
+	<BreadcrumbItem href="/">Glows</BreadcrumbItem>
 	{#if data}
 		<BreadcrumbItem>{data.metadata.label}</BreadcrumbItem>
 	{/if}
