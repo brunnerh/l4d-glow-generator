@@ -48,7 +48,7 @@
 
 	function onEditGlow(cvar: string)
 	{
-		goto(`/glow/${cvar}`);
+		goto(`${base}/glow/${cvar}`);
 	}
 
 	async function onLoadConfig()
